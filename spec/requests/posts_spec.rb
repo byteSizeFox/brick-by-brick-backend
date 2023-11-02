@@ -164,7 +164,7 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
-  describe "PUT /update" do
+  describe "PATCH /update" do
     it 'updates a post' do
       post = user.posts.create(
         title: 'post1',
@@ -175,10 +175,10 @@ RSpec.describe "Posts", type: :request do
         image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
         user_id: user.id
       )
-      put "/posts/#{post.id}", params: { post: { review: 'updated review' } }
+      patch "/posts/#{post.id}", params: { post: { review: 'updated review' } }
 
       post.reload
-      
+    
       expect(post.review).to eq 'updated review'
       expect(response).to have_http_status(200) 
     end
