@@ -162,6 +162,25 @@ RSpec.describe "Posts", type: :request do
       expect(post_error['user_id']).to include("can't be blank")
       expect(response).to have_http_status(422)
     end
+  end
 
+  describe "PUT /update" do
+    it 'updates a post' do
+      post = user.posts.create(
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: '$100',
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+      )
+      put "/posts/#{post.id}", params: { post: { review: 'updated review' } }
+
+      post.reload
+      
+      expect(post.review).to eq 'updated review'
+      expect(response).to have_http_status(200) 
+    end
   end
 end 

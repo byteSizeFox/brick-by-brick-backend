@@ -10,7 +10,16 @@ class PostsController < ApplicationController
         else 
             render json: post.errors, status: 422
         end
-    end 
+    end
+    def update
+        post = Post.find(params[:id])
+        post.update(post_params) 
+        if post.valid?
+            render json: post
+        else
+            render json: { errors: post.errors.full_messages }, status: 422
+        end
+    end
     private 
     def post_params 
         params.require(:post).permit(:image, :title, :time_spent, :difficulty, :price, :review, :user_id) 
