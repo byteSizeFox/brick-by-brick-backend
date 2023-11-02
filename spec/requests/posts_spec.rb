@@ -61,6 +61,108 @@ RSpec.describe "Posts", type: :request do
       expect(post_error['title']).to include("can't be blank")
       expect(response).to have_http_status(422)
   end
+  it 'does not save an entry missing a time spent' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: nil,
+        difficulty: 5,
+        price: '$100',
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['time_spent']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
+  it 'does not save an entry missing difficulty' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: nil,
+        price: '$100',
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['difficulty']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
+  it 'does not save an entry missing price' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: nil,
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['price']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
+  it 'does not save an entry missing review' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: '$100',
+        review: nil,
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['review']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
+  it 'does not save an entry missing image' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: '$100',
+        review: 'sample review',
+        image: nil,
+        user_id: user.id
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['image']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
+  it 'does not save an entry missing a user id' do
+    post_params = {
+      post: {
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: '$100',
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: nil
+       }
+    }
+    post '/posts', params: post_params
+    post_error = JSON.parse(response.body)
+    expect(post_error['user_id']).to include("can't be blank")
+    expect(response).to have_http_status(422)
+  end
 
   end
 end 
