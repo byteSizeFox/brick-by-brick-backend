@@ -183,4 +183,21 @@ RSpec.describe "Posts", type: :request do
       expect(response).to have_http_status(200) 
     end
   end
+  describe "DELETE /destroy" do
+    it 'deletes a post' do
+      post = user.posts.create(
+        title: 'post1',
+        time_spent: '3 hours',
+        difficulty: 5,
+        price: '$100',
+        review: 'sample review',
+        image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
+        user_id: user.id
+      )
+      delete "/posts/#{post.id}", params: { post: {} }
+    
+      expect(Post.exists?(post.id)).to be_falsey
+      expect(response).to have_http_status(200) 
+    end
+  end
 end 
