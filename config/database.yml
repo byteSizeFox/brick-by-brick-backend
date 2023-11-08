@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: brick_by_brick_backend_production
-  username: brick_by_brick_backend
-  password: <%= ENV["BRICK_BY_BRICK_BACKEND_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
