@@ -8,7 +8,7 @@ Post.create(
     price: '$100',
     review: 'sample review',
     image: 'https://unsplash.com/photos/lego-mini-figure-on-brown-sand-kgz9vsP5JCU',
-    user_id: user1.id
+    user_id: 1
 )
 
 Post.create(
@@ -18,7 +18,7 @@ Post.create(
     price: '$105',
     review: 'sample review 2',
     image: 'https://unsplash.com/photos/white-and-black-lego-toy-B7N0IjiIJYo',
-    user_id: user2.id
+    user_id: 2
 )
 
 p Post.all
