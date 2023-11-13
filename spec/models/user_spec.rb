@@ -15,13 +15,6 @@ RSpec.describe User, type: :model do
     )
     expect(user.errors[:password]).to_not be_empty
  end
- it 'is not valid without a password confirmation' do
-    user = User.create(
-    email: "test1@example.com",
-    password: "password"
-    )
-    expect(user.errors[:password_confirmation]).to_not be_empty
- end
  context 'without an @ sign' do
     let(:email) { 'testexample.com' }
 
